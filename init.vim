@@ -2,6 +2,11 @@ let mapleader = " "
 nnoremap <leader>ev :exec 'tabedit' stdpath('config').'/init.vim'<CR>
 nnoremap <leader>so :source %<CR>
 
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 set number
 set relativenumber
 set showmatch
@@ -25,6 +30,16 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'mhinz/vim-startify'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'gpanders/editorconfig.nvim'
+Plug 'tpope/vim-sleuth'
+"Plug 'sindrets/diffview.nvim'
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'neovim/nvim-lspconfig'
+"Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 
 syntax enable
