@@ -2,10 +2,17 @@ let mapleader = " "
 nnoremap <leader>ev :exec 'tabedit' stdpath('config').'/init.vim'<CR>
 nnoremap <leader>so :source %<CR>
 
+"Telescope bindings
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Tree bindings
+nnoremap <leader>tt :NvimTreeToggle<CR>
+nnoremap <leader>tr :NvimTreeRefresh<CR>
+nnoremap <leader>tf :NvimTreeFindFile<CR>
+nnoremap <leader>tc :NvimTreeCollapse<CR>
 
 set number
 set relativenumber
@@ -36,6 +43,8 @@ Plug 'gpanders/editorconfig.nvim'
 Plug 'tpope/vim-sleuth'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'sainnhe/sonokai'
+Plug 'nathom/filetype.nvim'
+Plug 'hashivim/vim-terraform'
 
 " LSP server stuff
 Plug 'williamboman/nvim-lsp-installer'
@@ -94,14 +103,24 @@ autocmd VimEnter * GitGutterEnable
 
 autocmd BufWritePost init.vim source %
 
-nnoremap <leader>tt :NvimTreeToggle<CR>
-nnoremap <leader>tr :NvimTreeRefresh<CR>
-nnoremap <leader>tf :NvimTreeFindFile<CR>
 highlight NvimTreeFolderIcon guibg=blue
 
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
+  -- Do not source the default filetype.vim
+  vim.g.did_load_filetypes = 1
+
+  require("filetype").setup({
+    overrides = {
+      extensions = {
+        tf = "terraform",
+        tfvars = "terraform",
+        tfstate = "json",
+      },
+    },
+  })
+
   require'nvim-tree'.setup { }
   require'nvim-treesitter.configs'.setup {
     ensure_installed = { "c", "lua", "rust", "yaml", "json", "toml", "regex", "bash", "dockerfile", "fish", "markdown" },
